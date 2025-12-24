@@ -1,51 +1,54 @@
 class Search_Module {
 
+    async waitForLoaderToDisappear(timeout = 120000) {
+        await browser.waitUntil(
+            async () => {
+                const loaders = await $$('android.widget.ProgressBar');
+                if (loaders.length === 0) {
+                    return true;
+                }
+                for (const loader of loaders) {
+                    if (await loader.isDisplayed()) {
+                        return false;
+                    }
+                }
 
-    async waitForLoaderToDisappear() {
-        const loader = $('android.widget.ProgressBar');
-        if (await loader.isExisting()) {
-            await loader.waitForDisplayed({
-                reverse: true,
-                timeout: 30000
-            }).catch(() => { });
-        }
+                return true;
+            },
+            {
+                timeout,
+                interval: 500,
+                timeoutMsg: 'Loader still visible after waiting'
+            }
+        ).catch(() => { });
     }
 
 
     async openModule(moduleName) {
+
         await this.waitForLoaderToDisappear();
-
-
         const searchBar = $('android=new UiSelector().resourceId("search-bar")');
-        await searchBar.waitForDisplayed({ timeout: 20000 });
+        await searchBar.waitForDisplayed({ timeout: 120000 });
         await searchBar.click();
         await searchBar.clearValue();
         await searchBar.setValue(moduleName);
-
-
-        try { await driver.hideKeyboard(); } catch (e) { }
-
-
+        try {
+            await driver.hideKeyboard();
+        } catch (e) { }
         await this.waitForLoaderToDisappear();
-
-
         const module = await $(`~${moduleName}`);
-        await module.waitForDisplayed({ timeout: 20000 });
+        await module.waitForDisplayed({ timeout: 120000 });
         await module.click();
+        await this.waitForLoaderToDisappear();
     }
-
 
     async openSubModule(subModuleName) {
         await this.waitForLoaderToDisappear();
-
-
         const subModule = await $(`~${subModuleName}`);
-        await subModule.waitForDisplayed({ timeout: 20000 });
+        await subModule.waitForDisplayed({ timeout: 120000 });
         await subModule.click();
+        await this.waitForLoaderToDisappear();
     }
 }
 
-
-export default Search_Module;
-
-
+export default new Search_Module();

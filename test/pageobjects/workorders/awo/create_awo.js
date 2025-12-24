@@ -1,18 +1,25 @@
-class CreateAirfield {
-    get searchBar() {
-        return $('android=new UiSelector().resourceId("search-bar")');
+import BasePage from '../../../fixtures/base-page.js';
+
+class CreateAirfield extends BasePage {
+
+    /* ---------------- LOCATORS ---------------- */
+    get priorityField() { return $('~Please select the Priority'); }
+    get categoryDropdown() { return $('~Please select the Category'); }
+    get subCategoryDropdown() { return $('~Please select the Sub-Category'); }
+    get wildlifeTypeField() {
+        return $('//android.widget.TextView[@text="Wildlife Type"]/following-sibling::android.view.ViewGroup');
     }
 
-    get priorityField() {
-        return $('~Please select the Priority');
+    wildlifeTypeOption(value) {
+        return $(`//android.widget.TextView[@text="${value}"]`);
     }
 
-    get categoryDropdown() {
-        return $('~Please select the Category');
+    get wildlifeSpeciesField() {
+        return $('//android.widget.TextView[@text="Wildlife Species"]/following-sibling::android.view.ViewGroup');
     }
 
-    get subCategoryDropdown() {
-        return $('~Please select the Sub-Category');
+    wildlifeSpeciesOption(value) {
+        return $(`//android.widget.TextView[@text="${value}"]`);
     }
 
     priorityOption(value) {
@@ -23,146 +30,255 @@ class CreateAirfield {
         return $(`~${name}`);
     }
 
-    async waitForLoaderToDisappear() {
-        await browser.waitUntil(async () => {
-            const loaders = await $$('android.widget.ProgressBar');
-            return loaders.length === 0;
-        }, {
-            timeout: 30000,
-            interval: 500
-        }).catch(() => { });
-    }
-
-    async swipeUp() {
-        const { width, height } = await driver.getWindowSize();
-        await driver.execute('mobile: swipeGesture', {
-            left: Math.floor(width * 0.1),
-            top: Math.floor(height * 0.7),
-            width: Math.floor(width * 0.8),
-            height: Math.floor(height * 0.2),
-            direction: 'up',
-            percent: 0.8
-        });
-    }
-
-    async scrollUntilVisible(element, maxSwipes = 8) {
-        for (let i = 0; i < maxSwipes; i++) {
-            if (await element.isExisting() && await element.isDisplayed()) {
-                return true;
-            }
-            await this.swipeUp();
-            await driver.pause(800);
-        }
-        throw new Error('Element not visible after scrolling');
-    }
-
-    async safeClick(element) {
-        if (!(await element.isExisting()) || !(await element.isDisplayed())) {
-            await this.scrollUntilVisible(element);
-        }
-        await element.click();
-    }
-
-    async openWorkOrder(type) {
+    /* ---------------- BASIC ACTIONS ---------------- */
+    async openWorkOrder() {
         await this.waitForLoaderToDisappear();
-        const mapping = { view: 'View Airfield Work Orders', create: 'Create Work Order' };
-        const button = await $(`~${mapping[type.toLowerCase()]}`);
-        await this.safeClick(button);
+        const createBtn = await $('~Create Work Order');
+        await this.clickWhenVisible(createBtn);
+        await this.waitForLoaderToDisappear();
     }
 
     async selectPriority(value) {
-        await this.safeClick(this.priorityField);
+        await this.clickWhenVisible(this.priorityField);
         const option = await this.priorityOption(value);
-        await this.safeClick(option);
+        await this.clickWhenVisible(option);
+        await this.waitForLoaderToDisappear();
     }
 
-    async click_on_category(categoryName) {
-        await this.safeClick(this.categoryDropdown);
-        await driver.pause(1000);
-        const category = await this.categoryOption(categoryName);
-        await this.safeClick(category);
+    async click_on_category(category) {
+        await this.clickWhenVisible(this.categoryDropdown);
+        const option = await this.categoryOption(category);
+        await this.clickWhenVisible(option);
+        await this.waitForLoaderToDisappear();
+    }
+
+    async click_on_sub_category(subCategory) {
+        await this.clickWhenVisible(this.subCategoryDropdown);
+        const option = await this.categoryOption(subCategory);
+        await this.clickWhenVisible(option);
+        await this.waitForLoaderToDisappear();
     }
 
     async fill_description(text) {
-        const field = await $('android=new UiSelector().className("android.widget.EditText")');
-        await this.scrollUntilVisible(field);
-        await field.clearValue();
-        await field.setValue(text);
+        const field = await $('//android.widget.TextView[contains(@text,"Problem Description")]/following-sibling::android.widget.EditText');
+        await this.setValueWhenVisible(field, text);
     }
 
-    async click_on_sub_category(subCategoryName) {
-        const field = await $('~Please select the Sub-Category');
-        await this.scrollUntilVisible(field);
-        await this.safeClick(field);
-        await driver.pause(1000);
-        const subCategory = await this.categoryOption(subCategoryName);
-        await this.safeClick(subCategory);
+    async name_field(text) {
+        const input = await $('//android.widget.TextView[@text="Name "]/following-sibling::android.widget.EditText');
+        await this.setValueWhenVisible(input, text);
     }
+
+    async number_field(value) {
+        const input = await $('//android.widget.TextView[@text="Number "]/following-sibling::android.widget.EditText');
+        await this.setValueWhenVisible(input, value);
+    }
+
+    async click_on_checkbox() {
+        const checkbox = await $('//android.widget.TextView[@text="Checkbox "]/preceding-sibling::android.view.ViewGroup');
+        await this.clickWhenVisible(checkbox);
+    }
+
 
     async click_on_location_pointer() {
-        const field = await $('android=new UiSelector().text("* Location")');
-        await this.scrollUntilVisible(field);
+        const clickMap = await $('android=new UiSelector().textContains("Click on the Map")');
+        await this.clickWhenVisible(clickMap);
 
-        const pointer = await $('~');
-        if (await pointer.isDisplayed()) {
-            await pointer.click();
-            await pointer.catch();
-        }
-
-        const { width, height } = await driver.getWindowRect();
-        const tapX = Math.floor(width / 2);
-        const tapY = Math.floor(height / 2);
-
-        await driver.performActions([{
-            type: 'pointer',
-            id: 'finger1',
-            parameters: { pointerType: 'touch' },
-            actions: [
-                { type: 'pointerMove', duration: 0, x: tapX, y: tapY },
-                { type: 'pointerDown', button: 0 },
-                { type: 'pause', duration: 100 },
-                { type: 'pointerUp', button: 0 }
-            ]
-        }]);
-
-        await driver.releaseActions();
+        const pointer = await $('//android.widget.TextView[@text=""]/parent::*');
+        await pointer.waitForDisplayed({ timeout: 10000 });
+        await pointer.click();
     }
 
-    async click_on_Done() {
+    async click_done() {
         const done = await $('~Done');
-        await this.safeClick(done);
+        await this.clickWhenVisible(done);
     }
 
-    async click_on_Create() {
+
+    async select_date_by_label(label, day, month, year) {
+        const field = await $(`//android.widget.TextView[@text="${label}"]/following-sibling::android.view.ViewGroup`);
+        await this.clickWhenVisible(field);
+
+        const dateDesc = `${day} ${month} ${year}`;
+        const date = await $(`//android.view.View[@content-desc="${dateDesc}"]`);
+        await date.waitForDisplayed({ timeout: 10000 });
+        await date.click();
+
+        await this.clickOkButton();
+    }
+
+    async select_time(hour, minute) {
+        const field = await $('//android.widget.TextView[@text="Time "]/following-sibling::android.view.ViewGroup');
+        await this.clickWhenVisible(field);
+
+        await (await $('//android.widget.NumberPicker[1]//android.widget.EditText')).setValue(hour);
+        await (await $('//android.widget.NumberPicker[2]//android.widget.EditText')).setValue(minute);
+
+        await this.clickOkButton();
+    }
+
+
+    async selection_field(value) {
+        const field = await $('//android.widget.TextView[@text="Selection "]/following-sibling::android.view.ViewGroup');
+        await this.clickWhenVisible(field);
+
+        const option = await $(`~${value}`);
+        await this.clickWhenVisible(option);
+    }
+
+    async select_system_user(user) {
+        const field = await $('//android.widget.TextView[@text="System User "]/following-sibling::android.view.ViewGroup');
+        await this.clickWhenVisible(field);
+
+        const option = await $(`~${user}`);
+        await this.clickWhenVisible(option);
+        const done = await $('~Done');
+        await this.clickWhenVisible(done);
+    }
+
+    async click_on_mc_grid() {
+        const grid = await $('//android.view.ViewGroup[contains(@content-desc,"Multi Column Grid")]');
+        const mcName = await $('//android.widget.TextView[@text="MC Name "]/following-sibling::android.widget.EditText');
+        if (await mcName.isDisplayed().catch(() => false)) {
+            return;
+        }
+        await this.scrollIntoView(grid);
+        await grid.waitForEnabled({ timeout: 10000 });
+        await grid.click();
+        await mcName.waitForDisplayed({ timeout: 10000 });
+    }
+
+
+
+
+    async fill_mc_name(text) {
+        const input = await $('//android.widget.TextView[@text="MC Name "]/following-sibling::android.widget.EditText');
+        await this.setValueWhenVisible(input, text);
+    }
+
+    async fill_mc_number(text) {
+        const input = await $('//android.widget.TextView[@text="MC Number "]/following-sibling::android.widget.EditText');
+        await this.setValueWhenVisible(input, text);
+    }
+
+    async select_mc_date(day, month, year) {
+        await this.select_date_by_label("MC Date Time ", day, month, year);
+    }
+
+    async select_mc_selection(value) {
+        const field = await $('//android.widget.TextView[@text="MC Selection "]/following-sibling::android.view.ViewGroup');
+        await this.clickWhenVisible(field);
+
+        const option = await $(`~${value}`);
+        await this.clickWhenVisible(option);
+    }
+
+
+    async click_mc_save() {
+        const save = await $('//android.widget.Button[@content-desc="Save"]');
+        await this.clickWhenVisible(save);
+        await this.waitForLoaderToDisappear();
+    }
+
+
+    async selectWildlifeType(value) {
+        await this.clickWhenVisible(this.wildlifeTypeField);
+        const option = await this.wildlifeTypeOption(value);
+        await this.clickWhenVisible(option);
+
+    }
+
+    async selectWildlifeSpecies(value) {
+        await this.clickWhenVisible(this.wildlifeSpeciesField);
+        const option = await this.wildlifeSpeciesOption(value);
+        await this.clickWhenVisible(option);
+    }
+
+
+    async selectProperty(value) {
+        const selectBtn = await $('//android.widget.TextView[@text="Data Sources - Properties "]/following-sibling::android.view.ViewGroup[@content-desc="Select"]');
+        await this.clickWhenVisible(selectBtn);
+
+        const option = await $(`//android.view.ViewGroup[@content-desc="${value}"]`);
+        await option.waitForDisplayed({ timeout: 10000 });
+        await option.click();
+        const done = await $('~Done');
+        await this.clickWhenVisible(done);
+    }
+
+    async selectTenant(value) {
+        const selectBtn = await $('//android.widget.TextView[@text="Data Sources - Tenants "]/following-sibling::android.view.ViewGroup[@content-desc="Select"]');
+        await this.clickWhenVisible(selectBtn);
+
+        const option = await $(`//android.view.ViewGroup[@content-desc="${value}"]`);
+        await option.waitForDisplayed({ timeout: 10000 });
+        await option.click();
+        const done = await $('~Done');
+        await this.clickWhenVisible(done);
+    }
+
+    async selectAssetRegistry(value) {
+        const selectBtn = await $('//android.widget.TextView[@text="Data Sources - Asset Registry "]/following-sibling::android.view.ViewGroup[@content-desc="Select"]');
+        await this.clickWhenVisible(selectBtn);
+
+        const option = await $(`//android.view.ViewGroup[@content-desc="${value}"]`);
+        await option.waitForDisplayed({ timeout: 10000 });
+        await option.click();
+        const done = await $('~Done');
+        await this.clickWhenVisible(done);
+    }
+
+    async selectNotam(notamText) {
+        const selectBtn = await $('//android.widget.TextView[@text="Data Sources - NOTAMS "]/following-sibling::android.view.ViewGroup[@content-desc="Select"]');
+        await this.clickWhenVisible(selectBtn);
+        const option = await $(`//android.widget.TextView[@text="${notamText}"]/parent::android.view.ViewGroup`);
+        await option.waitForDisplayed({ timeout: 10000 });
+        await option.click();
+        const done = await $('~Done');
+        await this.clickWhenVisible(done);
+    }
+
+
+
+    async click_create() {
         const create = await $('~Create');
-        await this.safeClick(create);
-    }
-
-    async fill_work_done_description(text) {
-        const field = await $('android=new UiSelector().text("Enter description here")');
-        await this.safeClick(field);
-        await field.setValue(text);
-    }
-
-    async click_on_Save() {
-        const save = await $('~Save');
-        await this.safeClick(save);
-    }
-
-    async createWorkOrder(priority, category, subCategory, description, workDone) {
-        await this.openWorkOrder('create');
+        await this.clickWhenVisible(create);
         await this.waitForLoaderToDisappear();
+    }
 
-        await this.selectPriority(priority);
-        await this.click_on_category(category);
-        await this.click_on_sub_category(subCategory);
-        await this.fill_description(description);
+    async createWorkOrder() {
+        await this.openWorkOrder();
+        await this.selectPriority('High');
+        await this.click_on_category('Wildlife Hazards');
+        await this.click_on_sub_category('Dead birds');
+
         await this.click_on_location_pointer();
-        await this.click_on_Done();
-        await this.click_on_Create();
-        await this.waitForLoaderToDisappear();
-        await this.fill_work_done_description(workDone);
-        await this.click_on_Save();
+        await this.click_done();
+
+        await this.fill_description('Birds found near runway');
+        await this.name_field('Damodar');
+        await this.number_field('1234');
+        await this.click_on_checkbox();
+
+        await this.select_date_by_label("Date Time ", "30", "December", "2025");
+        await this.select_time('04', '06');
+
+        await this.selection_field('GHI');
+        await this.select_system_user('Damodar Uno');
+
+        await this.click_on_mc_grid();
+        await this.fill_mc_name('Prasad');
+        await this.fill_mc_number('4523');
+        await this.select_mc_date('26', 'December', '2025');
+        await this.select_mc_selection('20');
+        await this.click_mc_save();
+        await this.selectWildlifeType('Mammal');
+        await this.selectWildlifeSpecies('Rabbit');
+        await this.selectProperty('Property K');
+        await this.selectTenant('Aerosimple');
+        await this.selectAssetRegistry('Aerosimple L1');
+        await this.selectNotam('ID: 11/017');
+        await this.click_create();
     }
 }
 

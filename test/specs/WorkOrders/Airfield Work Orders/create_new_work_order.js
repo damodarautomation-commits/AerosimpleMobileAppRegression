@@ -1,13 +1,14 @@
 import Search_Module from '../../../pageobjects/module.page.js';
 import CreateAirfield from '../../../pageobjects/workorders/awo/create_awo.js';
 
-describe('Create Airfield Work Order', () => {
-    it('Create New Airfield Work Order', async () => {
-        const module = new Search_Module();
+describe('Create Airfield Work Order', function () {
+    this.timeout(300000);
 
-        await module.waitForLoaderToDisappear();
-        await module.openModule('Work Orders');
-        await module.openSubModule('Airfield Work Orders');
-        await CreateAirfield.createWorkOrder('High', 'Wildlife Hazards', 'Dead birds', 'Birds found near runway', 'Cleaned runway area and removed dead birds');
+    it('Create New Airfield Work Order', async function () {
+        await Search_Module.openModule('Work Orders');
+        await Search_Module.waitForLoaderToDisappear();
+
+        await Search_Module.openSubModule('Airfield Work Orders');
+        await CreateAirfield.createWorkOrder();
     });
 });

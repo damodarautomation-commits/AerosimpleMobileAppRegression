@@ -56,8 +56,8 @@ exports.config = {
     // ===================
     logLevel: 'info',
     bail: 0,
-    waitforTimeout: 30000,
-    connectionRetryTimeout: 120000,
+    waitforTimeout: 150000,
+    connectionRetryTimeout: 150000,
     connectionRetryCount: 3,
 
     // ===================
