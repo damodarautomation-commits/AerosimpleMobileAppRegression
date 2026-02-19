@@ -228,10 +228,16 @@ class CreateAirfield extends BasePage {
         await this.clickWhenVisible(done);
     }
 
-    async selectNotam(notamText) {
+    async selectNotam(index = 0) {
         const selectBtn = await $('//android.widget.TextView[@text="Data Sources - NOTAMS "]/following-sibling::android.view.ViewGroup[@content-desc="Select"]');
         await this.clickWhenVisible(selectBtn);
-        const option = await $(`//android.widget.TextView[@text="${notamText}"]/parent::android.view.ViewGroup`);
+        const options = await $$('//android.view.ViewGroup[.//android.widget.TextView]'); // adjust XPath to match all items
+
+        if (options.length === 0) {
+            throw new Error('No NOTAM options found');
+        }
+
+        const option = options[index];
         await option.waitForDisplayed({ timeout: 10000 });
         await option.click();
         const done = await $('~Done');
@@ -260,7 +266,7 @@ class CreateAirfield extends BasePage {
         await this.number_field('1234');
         await this.click_on_checkbox();
 
-        await this.select_date_by_label("Date Time ", "30", "December", "2025");
+        await this.select_date_by_label("Date Time ", "30", "January", "2025");
         await this.select_time('04', '06');
 
         await this.selection_field('GHI');
@@ -277,7 +283,7 @@ class CreateAirfield extends BasePage {
         await this.selectProperty('Property K');
         await this.selectTenant('Aerosimple');
         await this.selectAssetRegistry('Aerosimple L1');
-        await this.selectNotam('ID: 11/017');
+        await this.selectNotam('0');
         await this.click_create();
     }
 }

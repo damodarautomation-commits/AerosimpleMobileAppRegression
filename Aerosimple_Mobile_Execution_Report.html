@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Aerosimple Mobile Execution Report</title>
+<style>
+@page { size: A4; margin: 10mm; }
+body { font-family:"Roboto","Segoe UI",Arial,sans-serif; font-size:12px; color:#333; }
+.header { display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #ddd; padding-bottom:10px; }
+.title { font-family:"Segoe UI",Arial,sans-serif; font-size:18px; font-weight:bold; }
+.status-passed { color:#1a7f37; font-weight:bold; }
+.status-failed { color:#d1242f; font-weight:bold; }
+.summary-bar { display:flex; margin-top:10px; gap:8px; }
+.summary-bar div { flex:1; text-align:center; padding:6px; border-radius:6px; font-weight:bold; font-size:12px; }
+.passed-bar { background:#d4edda; color:#155724; }
+.failed-bar { background:#f8d7da; color:#721c24; }
+.skipped-bar { background:#e2e3e5; color:#383d41; }
+.total-bar { background:#cce5ff; color:#004085; }
+.section { margin-top:20px; }
+.section h3, th { font-family:"Segoe UI",Arial,sans-serif; background:#3a61a8; color:#fff; padding:8px; }
+table { width:100%; border-collapse:collapse; }
+td, th { border:1px solid #ccc; padding:6px; }
+.passed { color:#1a7f37; font-weight:bold; }
+.failed { color:#d1242f; font-weight:bold; }
+.skipped { color:#6c757d; font-weight:bold; }
+</style>
+</head>
+<body>
+
+<div class="header">
+<img src="https://cdn.prod.website-files.com/60c30511fa90c3083ea9886a/60da05013080e80a49c5732e_AE%20Logo%20Main.svg" height="36">
+<div class="title">
+Mobile Execution Report<br>
+Status: <span class="status-passed">Passed</span>
+</div>
+</div>
+
+<div class="section">
+<h3>Execution Details</h3>
+<table>
+<tr><td>Platform</td><td>Android 13</td><td>Device</td><td>MyDevice</td></tr>
+<tr><td>Automation</td><td>UiAutomator2</td><td>App Package</td><td>com.aerosimple.hybridapp</td></tr>
+<tr><td>Executed By</td><td>Damodar</td><td>Executed On</td><td>19/2/2026, 4:38:32 pm</td></tr>
+<tr><td>Total Tests</td><td>27</td><td>Total Duration</td><td>73m 21s</td></tr>
+<tr><td>Pass </td><td>100.0%</td><td>Fail </td><td>0.0%</td></tr>
+<tr><td>App Version</td><td>48.5.1</td><td>Environment Version</td><td>16.8.7 staging</td></tr>
+</table>
+</div><div class="summary-bar">
+  <div class="passed-bar"><div>27</div><div>Passed</div></div>
+  <div class="failed-bar"><div>0</div><div>Failed</div></div>
+  <div class="skipped-bar"><div>0</div><div>Skipped</div></div>
+  <div class="total-bar"><div>27</div><div>Total</div></div>
+</div>
+
+<div class="section">
+<h3>Test Results (Module Wise)</h3>
+<table>
+<tr><th>S.No</th><th>Module</th><th>Test Name</th><th>Status</th><th>Duration</th></tr>
+
+<tr>
+<td>1</td>
+<td>FOD Log</td>
+<td>Edit FOD Log Submission</td>
+<td class="passed">PASSED</td>
+<td>1m 13s</td>
+</tr>
+<tr>
+<td>2</td>
+<td>FOD Log</td>
+<td>New FOD Log Submission</td>
+<td class="passed">PASSED</td>
+<td>1m 24s</td>
+</tr>
+<tr>
+<td>3</td>
+<td>FOD Log</td>
+<td>Verify FOD Log Filters</td>
+<td class="passed">PASSED</td>
+<td>58s</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Forms</td>
+<td>Add and submit comments in Forms</td>
+<td class="passed">PASSED</td>
+<td>2m 32s</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Forms</td>
+<td>Link, Unlink, and View Linked Entries in Forms</td>
+<td class="passed">PASSED</td>
+<td>1m 31s</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Forms</td>
+<td>New form submission</td>
+<td class="passed">PASSED</td>
+<td>8m 42s</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Inspections</td>
+<td>Create New Airport Safety Self-Inspection with comment,attachment and location</td>
+<td class="passed">PASSED</td>
+<td>5m 2s</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Inspections</td>
+<td>Create New Airport Safety Self-Inspection without comments</td>
+<td class="passed">PASSED</td>
+<td>3m 34s</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Inspections</td>
+<td>Edit Airport Safety Self-Inspection</td>
+<td class="passed">PASSED</td>
+<td>2m 37s</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Inspections</td>
+<td>Edit Multi column inspection Submission</td>
+<td class="passed">PASSED</td>
+<td>1m 48s</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Inspections</td>
+<td>Edit Supplementary Inspection Submission</td>
+<td class="passed">PASSED</td>
+<td>1m 43s</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Inspections</td>
+<td>Inspection Save Draft &amp; Discard</td>
+<td class="passed">PASSED</td>
+<td>2m 18s</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Inspections</td>
+<td>Multi Coulmn Inspection Submission</td>
+<td class="passed">PASSED</td>
+<td>2m 37s</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Inspections</td>
+<td>New Tolarance Inspection Submission</td>
+<td class="passed">PASSED</td>
+<td>2m 48s</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Inspections</td>
+<td>Submit Periodic Condition Inspection with Connected Airfield Work Order</td>
+<td class="passed">PASSED</td>
+<td>2m 41s</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Inspections</td>
+<td>Submit Periodic Condition Inspection with Connected FOD Log and WildLife Log</td>
+<td class="passed">PASSED</td>
+<td>1m 9s</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Inspections</td>
+<td>Submit Periodic Condition Inspection with connected non airfield workorder </td>
+<td class="passed">PASSED</td>
+<td>2m 46s</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Inspections</td>
+<td>Supplementary Inspection Submission</td>
+<td class="passed">PASSED</td>
+<td>2m 9s</td>
+</tr>
+<tr>
+<td>19</td>
+<td>Inspections</td>
+<td>Verify Inspection Filters Functionality</td>
+<td class="passed">PASSED</td>
+<td>1m 16s</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Inspections</td>
+<td>Verify Inspection In-Progress Functionality</td>
+<td class="passed">PASSED</td>
+<td>6m 44s</td>
+</tr>
+<tr>
+<td>21</td>
+<td>Noise Log</td>
+<td>Create Noise Log with No Activity Submission</td>
+<td class="passed">PASSED</td>
+<td>1m 21s</td>
+</tr>
+<tr>
+<td>22</td>
+<td>Noise Log</td>
+<td>Edit Noise Log  Submission</td>
+<td class="passed">PASSED</td>
+<td>1m 1s</td>
+</tr>
+<tr>
+<td>23</td>
+<td>Non-Airfield Work Orders</td>
+<td>Create Non-Airfield Work Orders</td>
+<td class="passed">PASSED</td>
+<td>57s</td>
+</tr>
+<tr>
+<td>24</td>
+<td>WildLife</td>
+<td>Create Wildlife Log with Activity Submission</td>
+<td class="passed">PASSED</td>
+<td>1m 35s</td>
+</tr>
+<tr>
+<td>25</td>
+<td>WildLife</td>
+<td>Create Wildlife Log with No Activity Submission</td>
+<td class="passed">PASSED</td>
+<td>1m 26s</td>
+</tr>
+<tr>
+<td>26</td>
+<td>WildLife</td>
+<td>Edit Wildlife Log with  Submission</td>
+<td class="passed">PASSED</td>
+<td>1m 31s</td>
+</tr>
+<tr>
+<td>27</td>
+<td>WildLife</td>
+<td>Verify Wildlife Log Filters</td>
+<td class="passed">PASSED</td>
+<td>1m 4s</td>
+</tr>
+</table>
+</div>
+
+
+
+</body>
+</html>

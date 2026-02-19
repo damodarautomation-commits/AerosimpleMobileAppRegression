@@ -1,0 +1,14 @@
+{
+    "InspectionFODandWildlife": {
+        "ModuleName":"Inspections",
+        "inspectionAction": "Create New Inspection",
+        "inspectionName": "PERIODIC CONDITION INSPECTION CHECKLIST - Wild Life and FOD Log",
+        "shiftName": "Afternoon",
+        "checklistIndexes": [
+            1,
+            2
+        ],
+        "checklistActionIndex": 1,
+        "ChecklistActionItemName": "Wildlife Log"
+    }
+}

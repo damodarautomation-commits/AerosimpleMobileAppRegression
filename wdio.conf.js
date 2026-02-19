@@ -1,5 +1,7 @@
-exports.config = {
+// wdio.conf.js
+const { exec } = require('child_process');
 
+exports.config = {
     // ====================
     // Runner Configuration
     // ====================
@@ -15,7 +17,6 @@ exports.config = {
     // Capabilities
     // ===================
     maxInstances: 1,
-
     capabilities: [{
         platformName: 'Android',
 
@@ -24,7 +25,8 @@ exports.config = {
 
         // Device details (Real Device)
         'appium:deviceName': 'MyDevice',
-        'appium:udid': '24141FDF60028R',
+        'appium:udid': '24141FDF60028R', // office mobile
+        //'appium:udid': 'ZD2225JHNC', // My mobile
         'appium:platformVersion': '13',
 
         // App behavior
@@ -64,10 +66,9 @@ exports.config = {
     // Test Framework
     // ===================
     framework: 'mocha',
-
     mochaOpts: {
         ui: 'bdd',
-        timeout: 90000,
+        timeout: 900000,
         require: ['./test/fixtures/aerosimple.setup.js']
     },
 
@@ -84,9 +85,20 @@ exports.config = {
     ],
 
     // ===================
-    // Appium Server
+    // Appium Service
     // ===================
-    services: ['appium'],
+    services: [
+        ['appium', {
+            args: {
+                address: '127.0.0.1',
+                port: 4723,
+                relaxedSecurity: true,
+                logLevel: 'info'
+            },
+            logPath: './logs'
+        }]
+    ],
+
     hostname: '127.0.0.1',
     port: 4723,
     path: '/',
@@ -104,13 +116,22 @@ exports.config = {
             try {
                 await browser.takeScreenshot();
             } catch (e) {
-                console.log('Screenshot skipped – UiAutomator2 crashed');
+                console.log('Screenshot skipped – session closed or UiAutomator2 crashed');
             }
         }
     },
 
+    // Run after all tests finish
     onComplete: function () {
-        console.log('Test run finished!');
+        console.log('Test run finished! Generating HTML + PDF report...');
+
+        exec('node AerosimpleMobileReport.js', (err, stdout, stderr) => {
+            if (err) {
+                console.error('PDF/HTML report generation failed', err);
+            } else {
+                console.log(stdout);
+                console.log('PDF/HTML report generated successfully!');
+            }
+        });
     }
 };
-

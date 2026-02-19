@@ -1,0 +1,41 @@
+{
+    "Forms": {
+        "ModuleName": "Forms",
+        "FormNames": [
+            "Aerosimple Form ",
+            "Aerosimple Form with Data sources and MCG ",
+            "Aerosimple Form with sections "
+        ],
+        "FormOptions": [
+            "Add Form Entry",
+            "View Form Data",
+            "Cancel"
+        ],
+        "FieldName": "Name ",
+        "FieldNameValue": "Damodar",
+        "FieldNumber": "Number ",
+        "FieldNumberValue": "4512",
+        "FieldCheckBox": "Checkbox",
+        "mcgFieldName": "Name Field ",
+        "mcgFieldNameValue": "Prasad Josyula",
+        "mcgFieldNumber": "Number Field ",
+        "mcgFieldNumberValue": "7485",
+        "mcgDateField": "Date and Time Field ",
+        "Year": "2026",
+        "Month": "February",
+        "Date": "15",
+        "SelectOption": "10",
+        "AttachmentOption": "Select From Gallery",
+        "System User": "Sateesh Admin",
+        "DataSource Property": "Properties ",
+        "PropertyValue": "Property K",
+        "DataSource AssetRegistry": "Asset Registry ",
+        "AssetRegistryValue": "16ft Utility Trailer - (Source: Master)",
+        "DataSource Tenants": "Company Name (Tenants) ",
+        "TenantName": "Unosimple Tech Info",
+        "DataSource Form Data": "Form Data ",
+        "Form Data Value": "Manikanta",
+        "DataSource NOTAMS": "NOTAMS ",
+        "NotamBasedOnIndex": 10
+    }
+}

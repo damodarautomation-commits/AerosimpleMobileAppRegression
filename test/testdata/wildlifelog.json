@@ -1,0 +1,27 @@
+{
+    "wildLife": {
+        "ModuleName": "WildLife",
+        "wildLifeSubModules": [
+            "Wildlife Log",
+            "Strike Report",
+            "Wildlife Count Inspections"
+        ],
+        "WildLogOption": [
+            "View  Wildlife Log",
+            "Add Wildlife Log",
+            "Cancel"
+        ],
+        "Date": "14",
+        "FieldName": "Activity",
+        "ActivityOption": "None/No Activity",
+        "ActivityOption1": "Feeding",
+        "Description": "wild life sit on runway",
+        "TypeofWildlife": "Mammal",
+        "Species": "Bat",
+        "Number Spotted Field": "Number Spotted",
+        "Number Killed Field": "Number Killed",
+        "Spotted": 5,
+        "Killed": 0,
+        "FilterRange": "Last 30 Days"
+    }
+}

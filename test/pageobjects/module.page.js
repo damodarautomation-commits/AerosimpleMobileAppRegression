@@ -1,4 +1,5 @@
-class Search_Module {
+import BasePage from '../fixtures/base-page.js';
+class Search_Module extends BasePage {
 
     async waitForLoaderToDisappear(timeout = 120000) {
         await browser.waitUntil(
@@ -48,6 +49,12 @@ class Search_Module {
         await subModule.waitForDisplayed({ timeout: 120000 });
         await subModule.click();
         await this.waitForLoaderToDisappear();
+    }
+
+    async click_on_module(module_name) {
+        const module = await $(`//android.widget.TextView[@text="${module_name}"]`)
+        await this.swipe_till_element(module);
+        await module.click();
     }
 }
 

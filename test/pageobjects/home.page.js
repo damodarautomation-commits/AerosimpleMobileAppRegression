@@ -3,9 +3,11 @@ class HomePage {
         return $('android=new UiSelector().className("android.widget.ImageView").instance(0)');
     }
 
+
     get airportStaffLoginBtn() {
-        return $('~Airport Staff - App Login');
+        return $('android=new UiSelector().descriptionMatches("(?i).*airport staff.*login.*")');
     }
+
 
     async wait(ms = 1000) {
         await browser.pause(ms);
@@ -69,7 +71,7 @@ class HomePage {
     }
 
     async clickAirportStaffLogin() {
-        await this.airportStaffLoginBtn.waitForDisplayed({ timeout: 5000 });
+        await this.airportStaffLoginBtn.waitForDisplayed({ timeout: 50000 });
         await this.airportStaffLoginBtn.click();
         await this.wait(2000);
     }

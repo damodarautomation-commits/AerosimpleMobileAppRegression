@@ -1,6 +1,8 @@
 {
     "Login": {
         "Email": "aerosimple@unosimple.com",
-        "Password": "Aero@123"
+        "Password": "Aero@123",
+        "maintenance_staff_email": "aerosimple+ms@unosimple.com",
+        "operation_staff_email": "aerosimple+op@unosimple.com"
     }
 }

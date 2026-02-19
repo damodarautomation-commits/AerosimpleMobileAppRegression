@@ -5,7 +5,7 @@ class LoginPage {
     }
 
     get nextButton() {
-        return $('~Next');
+        return $('//android.widget.Button[@content-desc="Next"]');
     }
 
     get passwordInput() {
@@ -13,7 +13,7 @@ class LoginPage {
     }
 
     get loginWithPasswordBtn() {
-        return $('android=new UiSelector().text("Login with Password")');
+        return $('android=new UiSelector().description("Login with password")');
     }
 
     async waitForLoaderToDisappear(timeout = 120000) {
@@ -58,13 +58,16 @@ class LoginPage {
 
     async login(email, password) {
         await this.waitForLoaderToDisappear();
+        await browser.pause(2000);
 
         await this.emailInput.waitForDisplayed({ timeout: 120000 });
         await this.emailInput.click();
         await this.emailInput.clearValue();
         await this.emailInput.setValue(email);
+        await browser.hideKeyboard();
 
         await this.nextButton.waitForDisplayed({ timeout: 120000 });
+        await browser.pause(5000);
         await this.nextButton.click();
 
         await this.waitForLoaderToDisappear();

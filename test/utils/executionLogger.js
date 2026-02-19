@@ -1,4 +1,3 @@
-
 import winston from 'winston';
 import fs from 'fs';
 import path from 'path';
@@ -19,7 +18,8 @@ export const logger = winston.createLogger({
     transports: [
         new winston.transports.Console(),
         new winston.transports.File({
-            filename: path.join(logDir, 'execution.log')
+            filename: path.join(logDir, 'execution.log'),
+            options: { flags: 'w' }
         })
     ]
 });

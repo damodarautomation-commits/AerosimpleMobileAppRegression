@@ -1,0 +1,11 @@
+{
+    "NAWO": {
+        "Module": "Work Orders",
+        "SubModule": "Non-Airfield Work Orders",
+        "SubModuleOptions": [
+            "View Non-Airfield Work Orders",
+            "Create Work Order",
+            "Cancel"
+        ]
+    }
+}
