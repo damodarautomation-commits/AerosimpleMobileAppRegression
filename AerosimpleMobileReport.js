@@ -1,7 +1,4 @@
-// AerosimpleMobileReport.js
-// Generates HTML + PDF Mobile Execution Report
-// Node.js 18+, Playwright (ES module)
-
+// AerosimpleMobileReport.js - FULL PRODUCTION CODE (Clean & Deduplicated)
 import fs from "fs";
 import path from "path";
 import os from "os";
@@ -22,21 +19,48 @@ const AUTOMATION = "UiAutomator2";
 const APP_VERSION = "48.5.1";
 const ENV_VERSION = "16.8.7 staging";
 
-const AERO_LOGO_URL =
-    "https://cdn.prod.website-files.com/60c30511fa90c3083ea9886a/60da05013080e80a49c5732e_AE%20Logo%20Main.svg";
+const AERO_LOGO_URL = "https://cdn.prod.website-files.com/60c30511fa90c3083ea9886a/60da05013080e80a49c5732e_AE%20Logo%20Main.svg";
 
 // ---------------- UTIL ----------------
-const formatDuration = ms => {
-    if (!ms) return "0s";
-    const s = Math.floor(ms / 1000);
-    const m = Math.floor(s / 60);
-    return m ? `${m}m ${s % 60}s` : `${s}s`;
+const formatDuration = (ms) => {
+    if (!ms || ms <= 0) return "0s";
+    const totalSeconds = Math.floor(ms / 1000);
+    if (totalSeconds >= 3600) {
+        const h = Math.floor(totalSeconds / 3600);
+        const m = Math.floor((totalSeconds % 3600) / 60);
+        const s = totalSeconds % 60;
+        return `${h}h ${m}m ${s}s`;
+    } else {
+        const m = Math.floor(totalSeconds / 60);
+        const s = totalSeconds % 60;
+        return m ? `${m}m ${s}s` : `${s}s`;
+    }
 };
 
-const escapeHtml = s =>
-    String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
+const escapeHtml = (s) => String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const getLabel = (labels, name) => labels?.find(l => l.name === name)?.value;
+
+// ---------------- CHART FUNCTIONS ----------------
+const generateModuleStats = (tests) => {
+    const stats = {};
+    const totalTests = tests.length;
+
+    tests.forEach((t) => {
+        if (!stats[t.module]) stats[t.module] = { passed: 0, failed: 0, skipped: 0, total: 0 };
+        stats[t.module][t.status]++;
+        stats[t.module].total++;
+    });
+
+    return Object.entries(stats).map(([name, data]) => ({
+        name,
+        passed: data.passed,
+        failed: data.failed,
+        skipped: data.skipped,
+        total: data.total,
+        passPct: data.total ? ((data.passed / data.total) * 100).toFixed(1) : "0",
+        contribPct: totalTests ? ((data.total / totalTests) * 100).toFixed(1) : "0"
+    })).sort((a, b) => a.name.localeCompare(b.name));
+};
 
 // ---------------- MAIN ----------------
 export async function generateMobileReport() {
@@ -47,12 +71,10 @@ export async function generateMobileReport() {
 
     const files = fs.readdirSync(RESULTS_DIR).filter(f => f.endsWith(".json"));
 
-    let passed = 0, failed = 0, skipped = 0;
-    let totalDuration = 0;
-
+    let passed = 0, failed = 0, skipped = 0, totalDuration = 0;
     const tests = [];
     const failedTests = [];
-    const seenTests = new Set();
+    const seenTests = new Map();
 
     for (const file of files) {
         const filePath = path.join(RESULTS_DIR, file);
@@ -63,39 +85,44 @@ export async function generateMobileReport() {
         if (!["passed", "failed", "skipped"].includes(status)) continue;
         if (/^(before|after)/i.test(data.name)) continue;
 
-        const duration = data.stop && data.start ? data.stop - data.start : 0;
-        totalDuration += duration;
-
         const labels = data.labels || [];
         let rawModule = getLabel(labels, "suite") || getLabel(labels, "parentSuite");
-
         if (!rawModule || rawModule.trim() === "" || rawModule.trim() === data.name.trim()) {
             rawModule = path.basename(path.dirname(filePath)) || "Unknown";
         }
 
-        const moduleName = rawModule;
+        const moduleName = rawModule.trim();
+        const testName = data.name.trim();
+        const uniqueKey = `${moduleName}|||${testName}`;
 
-        const uniqueKey = `${moduleName}||${data.name}`;
-        if (seenTests.has(uniqueKey)) continue;
-        seenTests.add(uniqueKey);
+        if (seenTests.has(uniqueKey)) {
+            console.log(`⏭️  Duplicate skipped: ${moduleName} > ${testName}`);
+            continue;
+        }
+
+        const duration = data.stop && data.start ? (data.stop - data.start) : 0;
+        seenTests.set(uniqueKey, duration);
 
         if (status === "passed") passed++;
         else if (status === "skipped") skipped++;
         else failed++;
 
+        totalDuration += duration;
+
         tests.push({
             module: moduleName,
-            name: data.name,
+            name: testName,
             status,
             duration: formatDuration(duration),
+            rawDuration: duration
         });
 
         if (status === "failed") {
             failedTests.push({
                 module: moduleName,
-                name: data.name,
+                name: testName,
                 type: "Error",
-                fix: "Check Appium server logs and device logcat.",
+                fix: "Check Appium server logs and device logcat."
             });
         }
     }
@@ -104,17 +131,20 @@ export async function generateMobileReport() {
     const passPct = total ? ((passed / total) * 100).toFixed(1) : 0;
     const failPct = total ? ((failed / total) * 100).toFixed(1) : 0;
 
+    console.log("\n📊 SUMMARY: ");
+    console.log(`Total Files: ${files.length}, Unique Tests: ${total}`);
+    console.log(`⏱️  Total Duration: ${formatDuration(totalDuration)}`);
+
+    const moduleStats = generateModuleStats(tests);
+
     const moduleMap = {};
     for (const t of tests) {
-        if (!moduleMap[t.module]) {
-            moduleMap[t.module] = [];
-        }
+        if (!moduleMap[t.module]) moduleMap[t.module] = [];
         moduleMap[t.module].push(t);
     }
 
     const orderedModules = Object.keys(moduleMap).sort();
     const orderedTests = [];
-
     for (const moduleName of orderedModules) {
         const moduleTests = moduleMap[moduleName];
         moduleTests.sort((a, b) => a.name.localeCompare(b.name));
@@ -123,7 +153,6 @@ export async function generateMobileReport() {
 
     const overallStatus = failed > 0 ? "Failed" : "Passed";
     const overallStatusClass = failed > 0 ? "status-failed" : "status-passed";
-
     const executedBy = os.userInfo().username;
     const executedOn = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
 
@@ -140,8 +169,8 @@ body { font-family:"Roboto","Segoe UI",Arial,sans-serif; font-size:12px; color:#
 .title { font-family:"Segoe UI",Arial,sans-serif; font-size:18px; font-weight:bold; }
 .status-passed { color:#1a7f37; font-weight:bold; }
 .status-failed { color:#d1242f; font-weight:bold; }
-.summary-bar { display:flex; margin-top:10px; gap:8px; }
-.summary-bar div { flex:1; text-align:center; padding:6px; border-radius:6px; font-weight:bold; font-size:12px; }
+.summary-bar { display:flex; margin:10px 0; gap:5px; }
+.summary-bar div { flex:1; text-align:center; padding:6px; border-radius:4px; font-weight:bold; font-size:12px; }
 .passed-bar { background:#d4edda; color:#155724; }
 .failed-bar { background:#f8d7da; color:#721c24; }
 .skipped-bar { background:#e2e3e5; color:#383d41; }
@@ -153,6 +182,7 @@ td, th { border:1px solid #ccc; padding:6px; }
 .passed { color:#1a7f37; font-weight:bold; }
 .failed { color:#d1242f; font-weight:bold; }
 .skipped { color:#6c757d; font-weight:bold; }
+.contrib { color:#3a61a8; font-weight:bold; }
 </style>
 </head>
 <body>
@@ -172,14 +202,33 @@ Status: <span class="${overallStatusClass}">${overallStatus}</span>
 <tr><td>Automation</td><td>${AUTOMATION}</td><td>App Package</td><td>${APP_PACKAGE}</td></tr>
 <tr><td>Executed By</td><td>${executedBy}</td><td>Executed On</td><td>${executedOn}</td></tr>
 <tr><td>Total Tests</td><td>${total}</td><td>Total Duration</td><td>${formatDuration(totalDuration)}</td></tr>
-<tr><td>Pass </td><td>${passPct}%</td><td>Fail </td><td>${failPct}%</td></tr>
-<tr><td>App Version</td><td>${APP_VERSION}</td><td>Environment Version</td><td>${ENV_VERSION}</td></tr>
+<tr><td>Pass Rate</td><td>${passPct}%</td><td>Fail Rate</td><td>${failPct}%</td></tr>
+<tr><td>App Version</td><td>${APP_VERSION}</td><td>Environment</td><td>${ENV_VERSION}</td></tr>
 </table>
-</div><div class="summary-bar">
+</div>
+
+<div class="summary-bar">
   <div class="passed-bar"><div>${passed}</div><div>Passed</div></div>
   <div class="failed-bar"><div>${failed}</div><div>Failed</div></div>
   <div class="skipped-bar"><div>${skipped}</div><div>Skipped</div></div>
   <div class="total-bar"><div>${total}</div><div>Total</div></div>
+</div>
+
+<div class="section">
+<h3>Module Execution Summary</h3>
+<table>
+<tr><th>Module</th><th>Passed</th><th>Failed</th><th>Skipped</th><th>Total</th><th>Pass Rate</th><th>Module Coverage</th></tr>
+${moduleStats.map((m) => `
+<tr>
+<td>${escapeHtml(m.name)}</td>
+<td class="passed">${m.passed}</td>
+<td class="failed">${m.failed}</td>
+<td class="skipped">${m.skipped}</td>
+<td><strong>${m.total}</strong></td>
+<td>${m.passPct}%</td>
+<td class="contrib">${m.contribPct}%</td>
+</tr>`).join('')}
+</table>
 </div>
 
 <div class="section">
@@ -214,11 +263,10 @@ ${failedTests.map((f, i) => `
 </div>` : ""}
 
 </body>
-</html>
-`;
+</html>`;
 
     fs.writeFileSync(HTML_FILE, html);
-    console.log("✅ HTML generated");
+    console.log("✅ HTML generated:", HTML_FILE);
 
     const browser = await chromium.launch({ headless: true });
     const page = await browser.newPage();
@@ -241,11 +289,11 @@ ${failedTests.map((f, i) => `
     }
 }
 
+// EXECUTE
 (async () => {
     try {
         await generateMobileReport();
     } catch (err) {
-        console.error(err);
+        console.error("Error:", err);
     }
 })();
-

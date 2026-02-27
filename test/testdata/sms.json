@@ -1,0 +1,24 @@
+{
+    "SMS": {
+        "Module": "SMS",
+        "SubModule": [
+            "Dashboard",
+            "Safety Risk Assessment",
+            "Safety Hazard",
+            "Risk Register",
+            "Corrective Actions",
+            "Safety Forms",
+            "SMS Log"
+        ],
+        "Title": "New Safety Hazard",
+        "Category": "Environmental",
+        "Priority": "High",
+        "Description": "A safety hazard was identified at the site and reported for review.",
+        "Phonenumber": 9492358076,
+        "Comment": "Oil spill noticed near the maintenance area. This may cause slipping hazards and environmental contamination. Requesting urgent cleanup.",
+        "Risk": "A3",
+        "CorrectiveActionName": "New Mitigation",
+        "Controler1": "Administrative Controls",
+        "Controler2": "Elimination"
+    }
+}

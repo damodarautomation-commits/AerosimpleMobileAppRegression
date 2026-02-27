@@ -11,8 +11,8 @@ body { font-family:"Roboto","Segoe UI",Arial,sans-serif; font-size:12px; color:#
 .title { font-family:"Segoe UI",Arial,sans-serif; font-size:18px; font-weight:bold; }
 .status-passed { color:#1a7f37; font-weight:bold; }
 .status-failed { color:#d1242f; font-weight:bold; }
-.summary-bar { display:flex; margin-top:10px; gap:8px; }
-.summary-bar div { flex:1; text-align:center; padding:6px; border-radius:6px; font-weight:bold; font-size:12px; }
+.summary-bar { display:flex; margin:10px 0; gap:5px; }
+.summary-bar div { flex:1; text-align:center; padding:6px; border-radius:4px; font-weight:bold; font-size:12px; }
 .passed-bar { background:#d4edda; color:#155724; }
 .failed-bar { background:#f8d7da; color:#721c24; }
 .skipped-bar { background:#e2e3e5; color:#383d41; }
@@ -24,6 +24,7 @@ td, th { border:1px solid #ccc; padding:6px; }
 .passed { color:#1a7f37; font-weight:bold; }
 .failed { color:#d1242f; font-weight:bold; }
 .skipped { color:#6c757d; font-weight:bold; }
+.contrib { color:#3a61a8; font-weight:bold; }
 </style>
 </head>
 <body>
@@ -41,16 +42,89 @@ Status: <span class="status-passed">Passed</span>
 <table>
 <tr><td>Platform</td><td>Android 13</td><td>Device</td><td>MyDevice</td></tr>
 <tr><td>Automation</td><td>UiAutomator2</td><td>App Package</td><td>com.aerosimple.hybridapp</td></tr>
-<tr><td>Executed By</td><td>Damodar</td><td>Executed On</td><td>19/2/2026, 4:38:32 pm</td></tr>
-<tr><td>Total Tests</td><td>27</td><td>Total Duration</td><td>73m 21s</td></tr>
-<tr><td>Pass </td><td>100.0%</td><td>Fail </td><td>0.0%</td></tr>
-<tr><td>App Version</td><td>48.5.1</td><td>Environment Version</td><td>16.8.7 staging</td></tr>
+<tr><td>Executed By</td><td>Damodar</td><td>Executed On</td><td>27/2/2026, 10:03:33 am</td></tr>
+<tr><td>Total Tests</td><td>36</td><td>Total Duration</td><td>1h 19m 29s</td></tr>
+<tr><td>Pass Rate</td><td>100.0%</td><td>Fail Rate</td><td>0.0%</td></tr>
+<tr><td>App Version</td><td>48.5.1</td><td>Environment</td><td>16.8.7 staging</td></tr>
 </table>
-</div><div class="summary-bar">
-  <div class="passed-bar"><div>27</div><div>Passed</div></div>
+</div>
+
+<div class="summary-bar">
+  <div class="passed-bar"><div>36</div><div>Passed</div></div>
   <div class="failed-bar"><div>0</div><div>Failed</div></div>
   <div class="skipped-bar"><div>0</div><div>Skipped</div></div>
-  <div class="total-bar"><div>27</div><div>Total</div></div>
+  <div class="total-bar"><div>36</div><div>Total</div></div>
+</div>
+
+<div class="section">
+<h3>Module Execution Summary</h3>
+<table>
+<tr><th>Module</th><th>Passed</th><th>Failed</th><th>Skipped</th><th>Total</th><th>Pass Rate</th><th>Module Coverage</th></tr>
+
+<tr>
+<td>FOD Log</td>
+<td class="passed">3</td>
+<td class="failed">0</td>
+<td class="skipped">0</td>
+<td><strong>3</strong></td>
+<td>100.0%</td>
+<td class="contrib">8.3%</td>
+</tr>
+<tr>
+<td>Forms</td>
+<td class="passed">3</td>
+<td class="failed">0</td>
+<td class="skipped">0</td>
+<td><strong>3</strong></td>
+<td>100.0%</td>
+<td class="contrib">8.3%</td>
+</tr>
+<tr>
+<td>Inspections</td>
+<td class="passed">14</td>
+<td class="failed">0</td>
+<td class="skipped">0</td>
+<td><strong>14</strong></td>
+<td>100.0%</td>
+<td class="contrib">38.9%</td>
+</tr>
+<tr>
+<td>Noise Log</td>
+<td class="passed">2</td>
+<td class="failed">0</td>
+<td class="skipped">0</td>
+<td><strong>2</strong></td>
+<td>100.0%</td>
+<td class="contrib">5.6%</td>
+</tr>
+<tr>
+<td>Non-Airfield Work Orders</td>
+<td class="passed">3</td>
+<td class="failed">0</td>
+<td class="skipped">0</td>
+<td><strong>3</strong></td>
+<td>100.0%</td>
+<td class="contrib">8.3%</td>
+</tr>
+<tr>
+<td>Safety Management System (SMS)</td>
+<td class="passed">7</td>
+<td class="failed">0</td>
+<td class="skipped">0</td>
+<td><strong>7</strong></td>
+<td>100.0%</td>
+<td class="contrib">19.4%</td>
+</tr>
+<tr>
+<td>WildLife</td>
+<td class="passed">4</td>
+<td class="failed">0</td>
+<td class="skipped">0</td>
+<td><strong>4</strong></td>
+<td>100.0%</td>
+<td class="contrib">11.1%</td>
+</tr>
+</table>
 </div>
 
 <div class="section">
@@ -173,7 +247,7 @@ Status: <span class="status-passed">Passed</span>
 <tr>
 <td>17</td>
 <td>Inspections</td>
-<td>Submit Periodic Condition Inspection with connected non airfield workorder </td>
+<td>Submit Periodic Condition Inspection with connected non airfield workorder</td>
 <td class="passed">PASSED</td>
 <td>2m 46s</td>
 </tr>
@@ -217,31 +291,94 @@ Status: <span class="status-passed">Passed</span>
 <td>Non-Airfield Work Orders</td>
 <td>Create Non-Airfield Work Orders</td>
 <td class="passed">PASSED</td>
-<td>57s</td>
+<td>2m 21s</td>
 </tr>
 <tr>
 <td>24</td>
+<td>Non-Airfield Work Orders</td>
+<td>Edit Non-Airfield Work Orders</td>
+<td class="passed">PASSED</td>
+<td>1m 25s</td>
+</tr>
+<tr>
+<td>25</td>
+<td>Non-Airfield Work Orders</td>
+<td>Verify Maintenance Review Completion for Non-Airfield Work Order</td>
+<td class="passed">PASSED</td>
+<td>1m 37s</td>
+</tr>
+<tr>
+<td>26</td>
+<td>Safety Management System (SMS)</td>
+<td>Create Corrective action to safety hazard.</td>
+<td class="passed">PASSED</td>
+<td>1m 15s</td>
+</tr>
+<tr>
+<td>27</td>
+<td>Safety Management System (SMS)</td>
+<td>Create New NAWO for Safety Hazard</td>
+<td class="passed">PASSED</td>
+<td>1m 24s</td>
+</tr>
+<tr>
+<td>28</td>
+<td>Safety Management System (SMS)</td>
+<td>Create New Safety Hazard</td>
+<td class="passed">PASSED</td>
+<td>1m 4s</td>
+</tr>
+<tr>
+<td>29</td>
+<td>Safety Management System (SMS)</td>
+<td>Create New Safety Hazard as Anonymous User</td>
+<td class="passed">PASSED</td>
+<td>1m 41s</td>
+</tr>
+<tr>
+<td>30</td>
+<td>Safety Management System (SMS)</td>
+<td>Verify New Hazard Activity and History</td>
+<td class="passed">PASSED</td>
+<td>1m 40s</td>
+</tr>
+<tr>
+<td>31</td>
+<td>Safety Management System (SMS)</td>
+<td>Verify related hazard functionality.</td>
+<td class="passed">PASSED</td>
+<td>1m 17s</td>
+</tr>
+<tr>
+<td>32</td>
+<td>Safety Management System (SMS)</td>
+<td>Verify submission of all stages for a new safety hazard.</td>
+<td class="passed">PASSED</td>
+<td>2m 0s</td>
+</tr>
+<tr>
+<td>33</td>
 <td>WildLife</td>
 <td>Create Wildlife Log with Activity Submission</td>
 <td class="passed">PASSED</td>
 <td>1m 35s</td>
 </tr>
 <tr>
-<td>25</td>
+<td>34</td>
 <td>WildLife</td>
 <td>Create Wildlife Log with No Activity Submission</td>
 <td class="passed">PASSED</td>
 <td>1m 26s</td>
 </tr>
 <tr>
-<td>26</td>
+<td>35</td>
 <td>WildLife</td>
 <td>Edit Wildlife Log with  Submission</td>
 <td class="passed">PASSED</td>
 <td>1m 31s</td>
 </tr>
 <tr>
-<td>27</td>
+<td>36</td>
 <td>WildLife</td>
 <td>Verify Wildlife Log Filters</td>
 <td class="passed">PASSED</td>

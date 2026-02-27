@@ -6,6 +6,26 @@
             "View Non-Airfield Work Orders",
             "Create Work Order",
             "Cancel"
-        ]
+        ],
+        "Priority": "High",
+        "Category": "Carpet Cleaning",
+        "Name": "Shiva Prasad",
+        "Number": "4512",
+        "Selection": "DEF",
+        "System User": "Sateesh Admin",
+        "System User1": "Aerosimple Mobile",
+        "Property": "Property K",
+        "Asset Registry": "100 KW Onan Generator - (Source: Auditor)",
+        "Tenants": "Unosimple Tech Info",
+        "Wildlife Type": "Mammal",
+        "Wildlife Species": "Rabbit",
+        "Form Data": "Manikanta",
+        "Description": "Automation NAWO Test",
+        "Year": "2026",
+        "Month": "February",
+        "Date": "20",
+        "Hour": "10",
+        "Minute": "30",
+        "Meridian": "AM"
     }
 }

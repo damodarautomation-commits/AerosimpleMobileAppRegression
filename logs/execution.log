@@ -1,3 +1,97 @@
-[2026-02-19 16:37:16] [INFO] Self-healing locator worked: //android.view.ViewGroup[@content-desc="Create Work Order"]
-[2026-02-19 16:37:16] [INFO] Safe click executed successfully.
-[2026-02-19 16:37:16] [INFO] Clicked on submodule: Create Work Order
+[2026-02-27 10:01:13] [INFO] Self-healing locator worked: //android.view.ViewGroup[contains(@content-desc,"Apps")]
+[2026-02-27 10:01:25] [INFO] Existing Safety Hazard found. Clicking it.
+[2026-02-27 10:01:30] [INFO] Self-healing locator worked: //android.widget.HorizontalScrollView
+[2026-02-27 10:01:33] [INFO] Self-healing locator worked: //android.widget.HorizontalScrollView
+[2026-02-27 10:01:35] [INFO] Self-healing locator worked: //android.widget.TextView[@text="Work Orders"]/..
+[2026-02-27 10:01:37] [INFO] Self-healing locator worked: //android.widget.TextView[@text="Create Work Order"]/..
+[2026-02-27 10:01:38] [INFO] Self-healing locator worked: //android.widget.TextView[@text=" Create Non-Airfield Work Orders"]/..
+[2026-02-27 10:01:41] [INFO] Self-healing locator worked: (//android.widget.TextView[@text="Priority "]/following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:01:41] [INFO] Dropdown clicked
+[2026-02-27 10:01:42] [INFO] Self-healing locator worked: //android.widget.TextView[@text="High"]/..
+[2026-02-27 10:01:42] [INFO] Option selected
+[2026-02-27 10:01:45] [INFO] Self-healing locator worked: (//android.widget.TextView[@text="Category"]/following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:01:45] [INFO] Dropdown clicked
+[2026-02-27 10:01:46] [INFO] Self-healing locator worked: //android.view.ViewGroup[@content-desc="Carpet Cleaning"]
+[2026-02-27 10:01:46] [INFO] Option selected
+[2026-02-27 10:01:48] [INFO] Self-healing locator worked: (//android.widget.TextView[@text="Location"]/following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:01:48] [INFO] Dropdown clicked
+[2026-02-27 10:01:49] [INFO] Self-healing locator worked: //android.widget.TextView[@text="Property K"]/..
+[2026-02-27 10:01:49] [INFO] Option selected
+[2026-02-27 10:01:54] [INFO] Swipe attempt: 1
+[2026-02-27 10:01:55] [INFO] Element found after 1 swipes → (//android.widget.TextView[@text="Company Name "]/following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:01:56] [INFO] Self-healing locator worked: (//android.widget.TextView[@text="Company Name "]/following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:01:56] [INFO] Dropdown clicked
+[2026-02-27 10:01:57] [INFO] Self-healing locator worked: //android.view.ViewGroup[@content-desc="Unosimple Tech Info"]
+[2026-02-27 10:01:57] [INFO] Option selected
+[2026-02-27 10:01:58] [INFO] Element found after 0 swipes → (//android.widget.TextView[@text="Name "]//following-sibling::android.widget.EditText)[1]
+[2026-02-27 10:02:03] [INFO] Element found after 0 swipes → //android.widget.TextView[normalize-space(@text)="Check box"]/preceding-sibling::android.view.ViewGroup[last()]
+[2026-02-27 10:02:03] [INFO] Self-healing locator worked: //android.widget.TextView[normalize-space(@text)="Check box"]/preceding-sibling::android.view.ViewGroup[last()]
+[2026-02-27 10:02:05] [INFO] Swipe attempt: 1
+[2026-02-27 10:02:07] [INFO] Element found after 1 swipes → (//android.widget.TextView[@text="Selection "]//following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:02:07] [INFO] Self-healing locator worked: (//android.widget.TextView[@text="Selection "]//following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:02:07] [INFO] Dropdown clicked
+[2026-02-27 10:02:08] [INFO] Self-healing locator worked: //android.view.ViewGroup[@content-desc="DEF"]
+[2026-02-27 10:02:08] [INFO] Option selected
+[2026-02-27 10:02:10] [INFO] Element found after 0 swipes → (//android.widget.TextView[@text="System User "]//following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:02:11] [INFO] Self-healing locator worked: (//android.widget.TextView[@text="System User "]//following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:02:11] [INFO] Dropdown clicked
+[2026-02-27 10:02:12] [INFO] Self-healing locator worked: //android.view.ViewGroup[@content-desc="Aerosimple Mobile"]
+[2026-02-27 10:02:12] [INFO] Option selected
+[2026-02-27 10:02:13] [INFO] Done button clicked
+[2026-02-27 10:02:18] [INFO] Date selected: 20-February-2026
+[2026-02-27 10:02:25] [INFO] Time selected: 10:30 AM
+[2026-02-27 10:02:27] [INFO] Swipe attempt: 1
+[2026-02-27 10:02:28] [INFO] Element found after 1 swipes → (//android.widget.TextView[@text="Properties "]/following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:02:29] [INFO] Self-healing locator worked: (//android.widget.TextView[@text="Properties "]/following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:02:29] [INFO] Dropdown clicked
+[2026-02-27 10:02:30] [INFO] Self-healing locator worked: //android.widget.TextView[@text="Property K"]/..
+[2026-02-27 10:02:30] [INFO] Option selected
+[2026-02-27 10:02:31] [INFO] Done button clicked
+[2026-02-27 10:02:31] [INFO] Element found after 0 swipes → (//android.widget.TextView[@text="Asset Registry "]/following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:02:32] [INFO] Self-healing locator worked: (//android.widget.TextView[@text="Asset Registry "]/following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:02:32] [INFO] Dropdown clicked
+[2026-02-27 10:02:35] [INFO] Self-healing locator worked: //android.widget.TextView[@text="100 KW Onan Generator - (Source: Auditor)"]/..
+[2026-02-27 10:02:35] [INFO] Option selected
+[2026-02-27 10:02:35] [INFO] Done button clicked
+[2026-02-27 10:02:36] [INFO] Element found after 0 swipes → (//android.widget.TextView[@text="Tenants "]/following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:02:37] [INFO] Self-healing locator worked: (//android.widget.TextView[@text="Tenants "]/following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:02:37] [INFO] Dropdown clicked
+[2026-02-27 10:02:38] [INFO] Self-healing locator worked: //android.widget.TextView[@text="Unosimple Tech Info"]/..
+[2026-02-27 10:02:38] [INFO] Option selected
+[2026-02-27 10:02:38] [INFO] Done button clicked
+[2026-02-27 10:02:39] [INFO] Element found after 0 swipes → (//android.widget.TextView[@text="Wildlife Type"]/following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:02:42] [INFO] Self-healing locator worked: (//android.widget.TextView[@text="Wildlife Type"]/following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:02:42] [INFO] Dropdown clicked
+[2026-02-27 10:02:43] [INFO] Self-healing locator worked: //android.widget.TextView[@text="Mammal"]/..
+[2026-02-27 10:02:43] [INFO] Option selected
+[2026-02-27 10:02:45] [INFO] Element found after 0 swipes → (//android.widget.TextView[@text="Wildlife Species"]/following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:02:46] [INFO] Self-healing locator worked: (//android.widget.TextView[@text="Wildlife Species"]/following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:02:46] [INFO] Dropdown clicked
+[2026-02-27 10:02:47] [INFO] Self-healing locator worked: //android.widget.TextView[@text="Rabbit"]/..
+[2026-02-27 10:02:47] [INFO] Option selected
+[2026-02-27 10:02:50] [INFO] Swipe attempt: 1
+[2026-02-27 10:02:53] [INFO] Swipe attempt: 2
+[2026-02-27 10:02:54] [INFO] Element found after 2 swipes → (//android.widget.TextView[@text="NOTAMS "]/following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:02:55] [INFO] Self-healing locator worked: (//android.widget.TextView[@text="NOTAMS "]/following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:02:55] [INFO] Dropdown clicked
+[2026-02-27 10:02:56] [INFO] Self-healing locator worked: (//android.view.ViewGroup[.//android.widget.TextView])[9]
+[2026-02-27 10:02:56] [INFO] Option selected
+[2026-02-27 10:02:57] [INFO] Done button clicked
+[2026-02-27 10:02:57] [INFO] Element found after 0 swipes → (//android.widget.TextView[@text="Form Data "]/following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:02:58] [INFO] Self-healing locator worked: (//android.widget.TextView[@text="Form Data "]/following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:02:58] [INFO] Dropdown clicked
+[2026-02-27 10:02:59] [INFO] Self-healing locator worked: //android.widget.TextView[@text="Manikanta"]/..
+[2026-02-27 10:02:59] [INFO] Option selected
+[2026-02-27 10:03:00] [INFO] Done button clicked
+[2026-02-27 10:03:01] [INFO] Self-healing locator worked: //android.widget.TextView[@text="* Multi Column Grid"]/..
+[2026-02-27 10:03:02] [INFO] Element found after 0 swipes → (//android.widget.TextView[@text="Name "]//following-sibling::android.widget.EditText)[1]
+[2026-02-27 10:03:10] [INFO] Date selected: 20-February-2026
+[2026-02-27 10:03:11] [INFO] Element found after 0 swipes → (//android.widget.TextView[@text="Selection "]//following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:03:11] [INFO] Self-healing locator worked: (//android.widget.TextView[@text="Selection "]//following-sibling::android.view.ViewGroup)[1]
+[2026-02-27 10:03:11] [INFO] Dropdown clicked
+[2026-02-27 10:03:12] [INFO] Self-healing locator worked: //android.view.ViewGroup[@content-desc="DEF"]
+[2026-02-27 10:03:12] [INFO] Option selected
+[2026-02-27 10:03:18] [INFO] Time selected: 10:30 AM
+[2026-02-27 10:03:19] [INFO] Self-healing locator worked: //android.widget.Button[@content-desc="Save"]
+[2026-02-27 10:03:20] [INFO] Element found after 0 swipes → //android.widget.Button[@content-desc="Create"]
+[2026-02-27 10:03:21] [INFO] Self-healing locator worked: //android.widget.Button[@content-desc="Create"]
